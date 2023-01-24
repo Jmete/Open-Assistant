@@ -24,7 +24,11 @@ conversation, or at least as a prompt with replies.
   is potentially slower speed, and less features.
 - The official Twitter API
 
-## Currently Completed Items
+## Currently trying two methods
+
+### Processing Archive Dump
+
+#### Currently Completed Items
 
 - Downloaded various archive files (both are .tar, but each have a different
   format of json compression. One used .gz, and the other.bz2). Each json file
@@ -43,7 +47,7 @@ conversation, or at least as a prompt with replies.
 - Script can output the conversation threads into a jsonl file for further
   filtering or use in models.
 
-## Main Issue
+#### Main Issue
 
 - The issue is that we can easily scrape replies, but there is no guarantee the
   original tweet is in the archive file. Furthermore, the archives are large so
@@ -65,10 +69,11 @@ conversation, or at least as a prompt with replies.
   pagination limits. The main issue with this is it seems hard to search for it
   using alternative APIs.
 
-## TODO
+#### TODO
 
 - Write scripts to filter existing conversations into useful instructions ->
-  fulfilment with hashtags or cosine similarity.
+  fulfilment with hashtags or cosine similarity. May also try rankgen, minilm,
+  or others.
 - Train model to detect if text is a suitable instruction. This could then be
   run through the conversations (or full tweet dump) to simplify the process.
   Related to issue #143.
@@ -78,3 +83,28 @@ conversation, or at least as a prompt with replies.
   in JSONL with tree / node architecture as python dicts which is acceptable I
   believe.
 - Alternatively: Store processed tweets into DB or alternative option.(Optional)
+
+### Scraping Twitter Threads
+
+#### Currently Completed Items
+
+- Wrote script to scrape tweets to get tweet threads URL by detecting replies to
+  bots to unroll the thread. We can then store these urls and scrape them to get
+  the thread content.
+- Wrote script to clean up the thread content into a list of large strings. The
+  cleaning process removes usernames, newline characters, extra spaces, and
+  other small modifications.
+
+#### Main Issues
+
+- The threads need to be run through summarization models or similar models in
+  order to turn the thread content into useful Q&A pairs similar to our other
+  datasets.
+- Threads may still need a safety filter or similar to verify if threads are
+  suitable. While scraping threads has a higher probability of coherent text,
+  the nature of twitter is filled with spam or conspiracy theories.
+
+#### TODO
+
+- Using a summarization model to turn the thread strings into a dataset of
+  useful Q&A pairs.
