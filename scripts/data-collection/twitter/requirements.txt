@@ -5,3 +5,4 @@ polars==0.15.16
 requests==2.25.1
 snscrape==0.5.0.20230113
 tqdm==4.64.0
+transformers
