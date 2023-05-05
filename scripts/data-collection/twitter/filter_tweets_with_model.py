@@ -1,7 +1,8 @@
-from tqdm import tqdm
-from transformers import pipeline
 import json
 from datetime import datetime
+
+from tqdm import tqdm
+from transformers import pipeline
 
 tweet_threads_file = "twitter-conv-trees.jsonl"
 
@@ -11,8 +12,7 @@ with open(tweet_threads_file, "r") as f:
         json_object = json.loads(line)
         tweets.append(json_object)
 
-classifier = pipeline("text-classification", 
-model="jmete/tweet_instruct_detect")
+classifier = pipeline("text-classification", model="jmete/tweet_instruct_detect")
 
 # Create exportable conv thread.
 instruct_threads = []
@@ -25,7 +25,7 @@ for i in tqdm(tweets):
 
 print(f"Found {len(instruct_threads)} Instructions")
 
-the_date = datetime.today().strftime('%Y-%m-%d')
+the_date = datetime.today().strftime("%Y-%m-%d")
 
 # export instruct_threads to jsonl
 with open(f"tweet-conv-trees-instructions-{the_date}.jsonl", "w") as f:
